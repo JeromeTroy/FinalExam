@@ -24,7 +24,7 @@ public class RateDAL {
 		
 		try {
 			tx = session.beginTransaction();	
-			
+			//no
 			//TODO - RocketDALRateDAL.getAllRates
 			//			probably not a bad idea to sort the results...  Add an OrderBy
 			//			example can be found here:
