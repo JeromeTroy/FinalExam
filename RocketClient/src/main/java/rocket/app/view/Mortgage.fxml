@@ -10,6 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
 
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket.app.view.MortgageController">
@@ -43,7 +46,7 @@
                         <ComboBox fx:id="term" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" >
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <String fx:value="30" />
+                                 <String fx:value="15" />
                                  <String fx:value="30" />
                               </FXCollections>
                            </items>
