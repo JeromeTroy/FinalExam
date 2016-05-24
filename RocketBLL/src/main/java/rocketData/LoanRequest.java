@@ -2,6 +2,8 @@ package rocketData;
 
 import java.io.Serializable;
 
+import exceptions.RateException;
+
 public class LoanRequest implements Serializable {
 
 	private int iTerm;
@@ -10,8 +12,11 @@ public class LoanRequest implements Serializable {
 	private int iCreditScore;
 	private int iDownPayment;
 	private double dPayment;
+	private String error = "";
 	
 	//	TODO - RocketBLL.LoanRequest
+	//	loan request does not need to see these, its only purpose is to get
+	//  the payment for the person
 	//			missing attributes...
 	//			Income
 	//			Expenses
@@ -56,6 +61,11 @@ public class LoanRequest implements Serializable {
 	public void setdPayment(double dPayment) {
 		this.dPayment = dPayment;
 	}
-	
+	public void setsError(String message){
+		this.error = message;
+	}
+	public String getsError(){
+		return this.error;
+	}
 	
 }
