@@ -11,7 +11,7 @@ public class RateBLL {
 
 	private static RateDAL _RateDAL = new RateDAL();
 	
-	public static double getRate(int GivenCreditScore) 
+	public static double getRate(int GivenCreditScore) throws RateException 
 	{
 		ArrayList<RateDomainModel> allRates = RateDAL.getAllRates();
 		double rate = 0;
@@ -23,7 +23,14 @@ public class RateBLL {
 				break;
 			}
 		}
-		return rate;
+		if (rate == 0){
+			RateDomainModel rdm = new RateDomainModel();
+			rdm.setiMinCreditScore(GivenCreditScore);
+			rdm.setiRateID(0);
+			rdm.setiRateID(0);
+			throw new RateException(rdm);
+		}
+		else{return rate;}
 	}
 	
 	
