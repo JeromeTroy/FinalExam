@@ -11,12 +11,14 @@ public class RateBLL {
 
 	private static RateDAL _RateDAL = new RateDAL();
 	
-	static double getRate(int GivenCreditScore) 
+	public static double getRate(int GivenCreditScore) 
 	{
 		ArrayList<RateDomainModel> allRates = RateDAL.getAllRates();
 		double rate = 0;
+		//System.out.println("getRates");
 		for (RateDomainModel RateModel:allRates){
-			if (RateModel.getiMinCreditScore()==GivenCreditScore){
+			//System.out.println("get:"+RateModel.getiMinCreditScore());
+			if (RateModel.getiMinCreditScore()<=GivenCreditScore){
 				rate = RateModel.getdInterestRate();
 				break;
 			}
