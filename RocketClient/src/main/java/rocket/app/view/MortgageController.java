@@ -54,35 +54,40 @@ public class MortgageController {
 		lq.setiCreditScore(Integer.parseInt(creditScore.getText()));
 		lq.setiTerm(Integer.parseInt(term.getValue()));
 		lq.setdAmount(Double.parseDouble(houseCost.getText()));
-		lq.setdRate(RateBLL.getRate(lq.getiCreditScore()));
-		lq.setdPayment(RateBLL.getPayment(lq.getdRate(), lq.getiTerm()*12, lq.getdAmount(), 0, false));
+		try {
+			lq.setdRate(RateBLL.getRate(lq.getiCreditScore()));
+		} catch (RateException e) {
+			mortgageDetails.setText("Invalid credit score");
+			e.printStackTrace();
+		}
+		//lq.setdPayment(RateBLL.getPayment(lq.getdRate(), lq.getiTerm()*12, lq.getdAmount(), 0, false));
 		a.setLoanRequest(lq);
 		//	send lq as a message to RocketHub
 		Object message = lq;
 		mainApp.messageSend(message);
-		String rate = "";
+		String rate = "You interest rate is: ";
 		rate += lq.getdRate();
+		rate += "%";
 		interestRateLabel.setText(rate);
-		mortgageDetails.setText("Value will be displayed shortly");
-		
+		//HandleLoanRequestDetails(lq);
 	}
 	
 	public void HandleLoanRequestDetails(LoanRequest lRequest)
 	{
-		//	TODO - RocketClient.HandleLoanRequestDetails
-		//			lRequest is an instance of LoanRequest.
-		//			after it's returned back from the server, the payment (dPayment)
-		//			should be calculated.
-		//			Display dPayment on the form, rounded to two decimal places
-		double payment = lRequest.getdPayment();
+		String message = lRequest.getsError();
+		mortgageDetails.setText("Value will be displayed shortly");
+		//getting values
+		double payment = Math.round(lRequest.getdPayment()*100)/100;
+		
 		double Income = Double.parseDouble(income.getText());
 		double Expenses = Double.parseDouble(expenses.getText());
+		//get max payment
 		double max = Income*28/100;
 		if ((Income*36/100)-Expenses < max){
 			max = (Income*36/100)-Expenses;
 		}
-		String message = "";
-		if (max > payment){
+		// creating the message
+		if (max < payment){
 			message += "You do not have enough moeny to afford this house, \n";
 			message += "try finding a cheaper one.";
 		}else{
@@ -90,6 +95,7 @@ public class MortgageController {
 			message += payment;
 			message += ".";
 		}
+		
 		mortgageDetails.setText(message);
 		
 	}

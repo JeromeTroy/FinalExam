@@ -30,7 +30,7 @@ public class RocketHub extends Hub {
 			try {
 				double rate = RateBLL.getRate(lq.getiCreditScore());
 				lq.setdRate(rate);
-				double payment = RateBLL.getPayment(lq.getdRate(), 12*lq.getiTerm(), lq.getdAmount(), 0, false);
+				double payment = RateBLL.getPayment(lq.getdRate(), 12*lq.getiTerm(), lq.getdAmount());
 				lq.setdPayment(payment);
 			} catch (RateException e) {
 				String problem = "You have entered an invalid credit score, \n";

@@ -38,8 +38,8 @@ public class RateBLL {
 	//		how to use:
 	//		https://poi.apache.org/apidocs/org/apache/poi/ss/formula/functions/FinanceLib.html
 	
-	public static double getPayment(double r, double n, double p, double f, boolean t)
+	public static double getPayment(double rate, double nterms, double start)
 	{		
-		return FinanceLib.pmt(r, n, p, f, t);
+		return FinanceLib.pmt(rate, nterms, 0, start, false);
 	}
 }
